@@ -1,0 +1,39 @@
+.no_print {
+    @media print {
+        display: none !important;
+    }
+}
+
+@media print {
+    .card-body {
+        overflow: unset;
+    }
+
+    .production_details_invoice {
+        padding: 20px;
+    }
+
+    .print_body {
+        padding-bottom: 50px;
+    }
+
+    .break_before {
+        break-before: always;
+        page-break-after: always;
+    }
+
+    .break_after {
+        break-after: always;
+        page-break-after: always;
+    }
+
+    .content-body,
+    .list_card .card-body {
+        max-height: unset;
+        height: unset;
+    }
+
+    .app_frame {
+        display: unset;
+    }
+}

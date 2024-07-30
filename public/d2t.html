@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="charcountspan"></div>
+    <div id="wordcountspan"></div>
+    <div
+        style="align:center;background-color:#E0E8F0;width:98%;height:auto;border:1px solid #51A2D9;padding-left:10px;">
+        <b style="font-size:17px;color:#2a6592;">Enter Number or Amount</b><br>
+        <input type="text" value="" id="total" onkeypress="return onlyNumbers(this.value);"
+            style="background-color:#B9E5F3;font-size:18px;font-weight:bold;color:black;width:130px;"
+            name="totalofamount" maxlength="9" title="Enter digit between 1 to 999999999" autofocus="autofocus">
+
+        <input type="button" value="Convert In Bangla Words"
+            style="background-color:#2a6592;color:white;font-family:sans-serif;"
+            onclick="convertAmount(); wwords(); gwords(); intnum();"><br>
+
+        <span style="font-size:17px;color:#8A140E;">(Enter Number between 1 to 999999999 without comma)</span>
+        <br>
+
+        <div class="boxed">
+            <b style="font-size:17px;color:#2a6592;">In Words Bangla </b>
+            <br><textarea type="text" id="container2"
+                style="width:100%; max-width:600px; height:60px;background-color: #FFF;color:black;font-size:17px;overflow:auto;resize:none;"
+                name="hindiword"></textarea>
+
+            <b style="font-size:17px;color:#2a6592;">Copy Words &nbsp;</b>
+            <button style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                onclick="return fieldtoclipboard.copyfield(event, container2)">Copy</button>
+        </div>
+
+        <div class="boxed">
+            <b style="font-size:17px;color:#2a6592;">In Rupees Bangla </b><br>
+            <textarea type="text" id="container4"
+                style="width:100%; max-width:600px; height:60px; background-color: #FFF;color:black;font-size:17px;overflow:auto;resize:none;"
+                name="hindiword"></textarea>
+            <b style="font-size:17px;color:#2a6592;">Copy Words &nbsp;</b>
+            <button style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                onclick="return fieldtoclipboard.copyfield(event, container4)">Copy</button>
+        </div>
+        <div class="boxed">
+            <b style="font-size:17px;color:#2a6592;">In Words (International Format) </b>
+            <textarea type="text" id="intnum_converted"
+                style="width:100%; max-width:600px; height:60px; background-color: #FFF;color:black;font-size:17px;overflow:auto;resize:none;"></textarea>
+            <b style="font-size:17px;color:#2a6592;">Change Case &nbsp;</b>
+            <button onclick="return convertstring3(stringbox3, 'sentencecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Make everything lowercase except the first character and 'I'">Sentence</button>
+            <button onclick="return convertstring3(stringbox3, 'titlecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word, omitting common stop words like 'and', 'at' etc">Title</button>
+            <button onclick="return convertstring3(stringbox3, 'capitalcase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word">Capital</button>
+            <button onclick="return convertstring3(stringbox3, 'lowercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Lower Case everything inside the string.">Lower</button>
+            <button onclick="return convertstring3(stringbox3, 'uppercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Upper Case everything inside the string.">Upper</button>
+            <button style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                onclick="return fieldtoclipboard.copyfield(event, intnum_converted)">Copy</button>
+        </div>
+        <div class="boxed">
+            <b style="font-size:17px;color:#2a6592;">In Words English </b>
+            <br><textarea type="text" id="container3"
+                style="width:100%; max-width:600px; height:60px; background-color: #FFF;color:black;font-size:17px;overflow:auto;resize:none;"
+                name="words"></textarea>
+            <b style="font-size:17px;color:#2a6592;">Change Case &nbsp;</b>
+            <button onclick="return convertstring(stringbox, 'sentencecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Make everything lowercase except the first character and 'I'">Sentence</button>
+            <button onclick="return convertstring(stringbox, 'titlecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word, omitting common stop words like 'and', 'at' etc">Title</button>
+            <button onclick="return convertstring(stringbox, 'capitalcase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word">Capital</button>
+            <button onclick="return convertstring(stringbox, 'lowercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Lower Case everything inside the string.">Lower</button>
+            <button onclick="return convertstring(stringbox, 'uppercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Upper Case everything inside the string.">Upper</button>
+            <button style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                onclick="return fieldtoclipboard.copyfield(event, container3)">Copy</button>
+        </div>
+        <div class="boxed">
+            <b style="font-size:17px;color:#2a6592;">In Rupees English </b><br>
+
+            <textarea type="text" id="container"
+                style="width:100%; max-width:600px; height:60px;background-color: #FFF;color:black;font-size:17px;overflow:auto;resize:none;"
+                name="inwords"></textarea>
+            <b style="font-size:17px;color:#2a6592;">Change Case &nbsp;</b>
+            <button onclick="return convertstring2(stringbox2, 'sentencecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Make everything lowercase except the first character and 'I'">Sentence</button><span
+                class="ezoic-autoinsert-video ezoic-under_first_paragraph"></span><!-- ezoic_video_placeholder-under_first_paragraph-426x240-999998-clearholder --><!-- ezoic_video_placeholder-under_first_paragraph-426x240-999998-nonexxxclearxxxblock --><!-- ezoic_video_placeholder-under_first_paragraph-384x216-999998-clearholder --><!-- ezoic_video_placeholder-under_first_paragraph-384x216-999998-nonexxxclearxxxblock -->
+            <button onclick="return convertstring2(stringbox2, 'titlecase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word, omitting common stop words like 'and', 'at' etc">Title</button>
+            <button onclick="return convertstring2(stringbox2, 'capitalcase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Capitalize the first character of each word">Capital</button>
+            <button onclick="return convertstring2(stringbox2, 'lowercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Lower Case everything inside the string.">Lower</button>
+            <button onclick="return convertstring2(stringbox2, 'uppercase')"
+                style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                title="Upper Case everything inside the string.">Upper</button>
+            <button style="background-color:#2a6592;color:white;font-family:sans-serif;"
+                onclick="return fieldtoclipboard.copyfield(event, container)">Copy</button>
+
+        </div>
+
+
+    </div>
+
+    <script src="https://num2word.com/unicodetokrutidev/fieldtoclipboard.js"></script>
+    <script>
+        /* case convertor */
+        var stringbox = document.getElementById('container3')
+        var stringbox2 = document.getElementById('container')
+        var stringbox3 = document.getElementById('intnum_converted')
+
+        function convertstring(textarea, action) {
+            if (action == 'sentencecase') {
+                textarea.value = sentenceCase(textarea.value)
+            }
+            else if (action == 'titlecase') {
+                textarea.value = toTitleCase(textarea.value)
+            }
+            else if (action == 'capitalcase') {
+                textarea.value = CapitalCase(textarea.value)
+            }
+            else if (action == 'lowercase') {
+                textarea.value = lowerCase(textarea.value)
+            }
+            else if (action == 'uppercase') {
+                textarea.value = upperCase(textarea.value)
+            }
+            return false
+        }
+        function convertstring2(textarea, action) {
+            if (action == 'sentencecase') {
+                textarea.value = sentenceCase(textarea.value)
+            }
+            else if (action == 'titlecase') {
+                textarea.value = toTitleCase(textarea.value)
+            }
+            else if (action == 'capitalcase') {
+                textarea.value = CapitalCase(textarea.value)
+            }
+            else if (action == 'lowercase') {
+                textarea.value = lowerCase(textarea.value)
+            }
+            else if (action == 'uppercase') {
+                textarea.value = upperCase(textarea.value)
+            }
+            return false
+        }
+        function convertstring3(textarea, action) {
+            if (action == 'sentencecase') {
+                textarea.value = sentenceCase(textarea.value)
+            }
+            else if (action == 'titlecase') {
+                textarea.value = toTitleCase(textarea.value)
+            }
+            else if (action == 'capitalcase') {
+                textarea.value = CapitalCase(textarea.value)
+            }
+            else if (action == 'lowercase') {
+                textarea.value = lowerCase(textarea.value)
+            }
+            else if (action == 'uppercase') {
+                textarea.value = upperCase(textarea.value)
+            }
+            return false
+        }
+
+        function sentenceCase(str) {
+            var str = str.toLowerCase().replace(/\si\s/g, ' I ');
+            str = str.charAt(0).toUpperCase() + str.slice(1);
+            return str
+        }
+
+        function toTitleCase(str) {
+            var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+            var str = str.toLowerCase()
+            return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function (match, index, title) {
+                if (index > 0 && index + match.length !== title.length &&
+                    match.search(smallWords) > -1 && title.charAt(index - 2) !== ":" &&
+                    (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
+                    title.charAt(index - 1).search(/[^\s-]/) < 0) {
+                    return match.toLowerCase();
+                }
+
+                if (match.substr(1).search(/[A-Z]|\../) > -1) {
+                    return match;
+                }
+
+                return match.charAt(0).toUpperCase() + match.substr(1);
+            });
+        };
+
+        function CapitalCase(str) {
+            return str.toLowerCase().split(' ').map(function (word) {
+                return (word.charAt(0).toUpperCase() + word.slice(1));
+            }).join(' ');
+        }
+
+        function lowerCase(str) {
+            return str.toLowerCase();
+        }
+
+        function upperCase(str) {
+            return str.toUpperCase();
+        }
+
+        function wordandcharcount() {
+            wordcountspan.innerHTML = stringbox.value.split(' ').length
+            charcountspan.innerHTML = stringbox.value.length
+        }
+
+
+        stringbox.addEventListener('input', function () {
+            wordandcharcount()
+        }, false)
+
+        wordandcharcount()
+
+    </script>
+
+    <script>
+
+        /* Funtion for user enter only number and decimal point also*/
+        function onlyNumbers(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (charCode == 46) {
+                var inputValue = $("#inputfield").val()
+                if (inputValue.indexOf('.') < 1) {
+                    return true;
+                }
+                return false;
+            }
+            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <script>
+        /*function for amount convert into english words */
+
+        var iWords = [' zero', ' one', ' two', ' three', ' four', ' five', ' six', ' seven', ' eight', ' nine'];
+        var ePlace = [' ten', ' eleven', ' twelve', ' thirteen', ' fourteen', ' fifteen', ' sixteen', ' seventeen', ' eighteen', ' nineteen'];
+        var tensPlace = ['', ' ten', ' twenty', ' thirty', ' forty', ' fifty', ' sixty', ' seventy', ' eighty', ' ninety'];
+        var inWords = [];
+
+        var numReversed, inWords, actnumber, i, j;
+
+        function tensComplication() {
+            if (actnumber[i] == 0) {
+                inWords[j] = '';
+            } else if (actnumber[i] == 1) {
+                inWords[j] = ePlace[actnumber[i - 1]];
+            } else {
+                inWords[j] = tensPlace[actnumber[i]];
+            }
+        }
+
+        function convertAmount() {
+
+            var numericValue = document.getElementById('total').value;
+            var numericValue = numericValue.replace(/[,]/g, '');
+            numericValue = parseFloat(numericValue).toFixed(2);
+            var amount = numericValue.toString().split('.');
+            var taka = amount[0];
+            var paisa = amount[1];
+            document.getElementById('container').value = convert(taka) + " Rupees and" + convert(paisa) + " paisa only";
+
+        }
+        function convert(numericValue) {
+            inWords = []
+            if (numericValue == "00" || numericValue == "0") {
+                return ' zero';
+            }
+            var obStr = numericValue.toString();
+            numReversed = obStr.split('');
+            actnumber = numReversed.reverse();
+
+            if (Number(numericValue) == 0) {
+                document.getElementById('container').value = 'TOTAL Zero';
+                return false;
+            }
+
+            var iWordsLength = numReversed.length;
+            var finalWord = '';
+            j = 0;
+            for (i = 0; i < iWordsLength; i++) {
+                switch (i) {
+                    case 0:
+                        if (actnumber[i] == '0' || actnumber[i + 1] == '1') {
+                            inWords[j] = '';
+                        } else {
+                            inWords[j] = iWords[actnumber[i]];
+                        }
+                        inWords[j] = inWords[j] + '';
+                        break;
+                    case 1:
+                        tensComplication();
+                        break;
+                    case 2:
+                        if (actnumber[i] == '0') {
+                            inWords[j] = '';
+                        } else if (actnumber[i - 1] !== '0' && actnumber[i - 2] !== '0') {
+                            inWords[j] = iWords[actnumber[i]] + ' hundred';
+                        } else {
+                            inWords[j] = iWords[actnumber[i]] + ' hundred';
+                        }
+                        break;
+                    case 3:
+                        if (actnumber[i] == '0' || actnumber[i + 1] == '1') {
+                            inWords[j] = '';
+                        } else {
+                            inWords[j] = iWords[actnumber[i]];
+                        }
+                        if (actnumber[i + 1] !== '0' || actnumber[i] > '0') {
+                            inWords[j] = inWords[j] + ' thousand';
+                        }
+                        break;
+                    case 4:
+                        tensComplication();
+                        break;
+                    case 5:
+                        if (actnumber[i] == '0' || actnumber[i + 1] == '1') {
+                            inWords[j] = '';
+                        } else {
+                            inWords[j] = iWords[actnumber[i]];
+                        }
+                        if (actnumber[i + 1] !== '0' || actnumber[i] > '0') {
+                            inWords[j] = inWords[j] + ' lakh';
+                        }
+                        break;
+                    case 6:
+                        tensComplication();
+                        break;
+                    case 7:
+                        if (actnumber[i] == '0' || actnumber[i + 1] == '1') {
+                            inWords[j] = '';
+                        } else {
+                            inWords[j] = iWords[actnumber[i]];
+                        }
+                        inWords[j] = inWords[j] + ' crore';
+                        break;
+                    case 8:
+                        tensComplication();
+                        break;
+                    default:
+                        break;
+                }
+                j++;
+            }
+
+
+            inWords.reverse();
+            for (i = 0; i < inWords.length; i++) {
+                finalWord += inWords[i];
+            }
+            return finalWord;
+        }
+
+    </script>
+
+    <script>
+        /* fuction for amount convert without currency(in marathi and english words)  */
+
+        function wwords() {
+            var str, str1, str2, str3, q, q1, p, st;
+            var result = '';
+            var ws = new Array();
+            var ws1 = '';
+            var result2 = '';
+            // whiout point
+            var finalWords = document.getElementById('container').value;
+            finalWords = finalWords.trim();
+            var res1 = finalWords.match(" Rupees and zero");
+            if (res1 == " Rupees and zero") {
+
+
+                var completestring = finalWords.replace('Rupees and zero paisa only', '');
+
+
+                /* Function for text transform capitalize */
+                var pieces = completestring.split(" ");
+                for (var i = 0; i < pieces.length; i++) {
+                    var j = pieces[i].charAt(0).toUpperCase();
+                    pieces[i] = j + pieces[i].substr(1);
+                }
+                var string = pieces.join(" ");
+
+                document.getElementById('container3').value = string;
+            }
+
+            else {
+
+                // else for number in point
+
+                var res2 = finalWords.replace("Rupees and", "Point");
+
+                var res3 = res2.replace(" paisa only", " ");
+
+                var splitword = res3.split(" Point ");
+
+                var words2;
+                for (var z = 0; z < splitword.length; z++) {
+                    var words1 = splitword[1];
+                    words2 = splitword[0];
+                }
+
+                var spword = words1.split(" ");
+
+                /*var z='zero ';
+                var addstring = z + spword;
+                var ssword = addstring .replace(",", " ");
+                //alert(ssword);
+
+                var sword = ssword.split(" ");
+                //alert(addstring);
+                //var ssword =sword.replace(",", " ");
+                */
+                for (var z = 0; z < spword.length; z++) {
+                    var ws1 = spword[0];
+                    var ws2 = spword[1];
+
+                    if (ws1 == "one") {
+                        var t1 = " zero one "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "two") {
+                        var t1 = " zero two "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "three") {
+                        var t1 = " zero three "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "four") {
+                        var t1 = " zero four "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "five") {
+                        var t1 = " zero five "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "six") {
+                        var t1 = " zero six "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "seven") {
+                        var t1 = " zero seven "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "eight") {
+                        var t1 = " zero eight "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "nine") {
+                        var t1 = " zero nine "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "twenty") {
+                        var t1 = " two "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "thirty") {
+                        var t1 = " three "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "forty") {
+                        var t1 = " four "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "fifty") {
+                        var t1 = " five "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "sixty") {
+                        var t1 = " six "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "seventy") {
+                        var t1 = " seven "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "eighty") {
+                        var t1 = " eight "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "ninety") {
+                        var t1 = " nine "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "ten") {
+                        var t1 = " one "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+
+                    else if (ws1 == "eleven") {
+                        var t1 = " one one "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "twelve") {
+                        var t1 = " one two "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "thirteen") {
+                        var t1 = " one three "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "fourteen") {
+                        var t1 = " one four "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "fifteen") {
+                        var t1 = " one five "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "sixteen") {
+                        var t1 = " one six "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "seventeen") {
+                        var t1 = " one seven "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+                    }
+                    else if (ws1 == "eighteen") {
+                        var t1 = " one eight "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+
+                    }
+                    else if (ws1 == "nineteen") {
+                        var t1 = " one nine "
+
+                        var completestring = words2 + " Point" + t1 + ws2;
+
+                    }
+                    /* else if(ws1 == "one")
+                     {
+                        var t1 = " one "
+
+                        completestring = words2 + " Point" + t1 + ws2;
+
+                    }
+                    */
+
+
+
+
+                }
+                /* Function for text transform capitalize */
+                var pieces = completestring.split(" ");
+                for (var i = 0; i < pieces.length; i++) {
+                    var j = pieces[i].charAt(0).toUpperCase();
+                    pieces[i] = j + pieces[i].substr(1);
+                }
+                var string = pieces.join(" ");
+                document.getElementById('container3').value = string;
+
+            }
+            //alert(completestring);
+
+            var words = completestring.split(" ");
+            var histr = new Array();
+            var j = 0;
+
+            for (var i = 0; i < words.length; i++) {
+                str = words[i];
+                str1 = words[i + 1];
+
+
+                if (str === 'Point') {
+                    histr[j] = ' দশমিক';
+                }
+
+                if (str === ',') {
+                    histr[j] = ' ';
+                }
+                if (str === '') {
+                    histr[j] = ' ';
+                }
+                if (str === 'hundred') {
+                    histr[j] = ' শো';
+                }
+                if (str === 'thousand') {
+                    histr[j] = ' হাজার';
+                }
+                if (str === 'lakh') {
+                    histr[j] = ' লাখ';
+                }
+                if (str === 'crore') {
+                    histr[j] = ' কোটি';
+                }
+                if (str === 'zero') {
+                    histr[j] = '  শুন্য';
+                }
+                /* if for one to ten*/
+                if (str === 'one') {
+                    histr[j] = ' এক';
+                }
+                if (str === 'two') {
+                    histr[j] = ' দুই';
+                }
+                if (str === 'three') {
+                    histr[j] = ' তিন';
+                }
+                if (str === 'four') {
+                    histr[j] = ' চার';
+                }
+                if (str === 'five') {
+                    histr[j] = ' পাঁচ';
+                }
+                if (str === 'six') {
+                    histr[j] = ' ছয়';
+                }
+                if (str === 'seven') {
+                    histr[j] = ' সাত';
+                }
+                if (str === 'eight') {
+                    histr[j] = ' আট';
+                }
+                if (str === 'nine') {
+                    histr[j] = ' নয়';
+                }
+                if (str === 'ten') {
+                    histr[j] = ' দশ';
+                }
+                if (str === 'eleven') {
+                    histr[j] = ' এগারো';
+                }
+                if (str === 'twelve') {
+                    histr[j] = ' বারো';
+                }
+                if (str === 'thirteen') {
+                    histr[j] = ' তেরো';
+                }
+                if (str === 'fourteen') {
+                    histr[j] = ' চৌদ্দ';
+                }
+                if (str === 'fifteen') {
+                    histr[j] = ' পনেরো';
+                }
+                if (str === 'sixteen') {
+                    histr[j] = ' ষোল';
+                }
+                if (str === 'seventeen') {
+                    histr[j] = ' সতেরো';
+                }
+                if (str === 'eighteen') {
+                    histr[j] = ' আঠারো';
+                }
+                if (str === 'nineteen') {
+                    histr[j] = ' ঊনিশ';
+                }
+
+                if (str === 'twenty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একুশ';
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাইশ';
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেইশ';
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চব্বিশ';
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচিশ';
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছাব্বিশ';
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতাশ';
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আঠাশ';
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনত্রিশ';
+                    }
+
+                    else {
+                        histr[j] = ' বিশ';
+                        i--;
+                    }
+                    i++;
+                }
+
+
+                if (str === 'thirty') {
+
+                    if (str1 === 'one') {
+                        histr[j] = ' একত্রিশ';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বত্রিশ';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেত্রিশ';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চৌত্রিশ';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়ত্রিশ';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছত্রিশ';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাইত্রিশ';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটত্রিশ';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনচল্লিশ';
+
+                    }
+                    else {
+                        histr[j] = ' ত্রিশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'forty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একচল্লিশ';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিয়াল্লিশ';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেতাল্লিশ';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়াল্লিশ';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়তাল্লিশ';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছেচল্লিশ';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতচল্লিশ';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটচল্লিশ';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনপঞ্চাশ';
+
+                    }
+                    else {
+                        histr[j] = ' চল্লিশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'fifty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একান্ন';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বায়ান্ন';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তিপ্পান্ন';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়ান্ন';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঞ্চান্ন';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছাপ্পান্ন';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতান্ন';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটান্ন';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনষাট';
+
+                    }
+                    else {
+                        histr[j] = ' পঞ্চাশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'sixty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একষট্টি';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাষট্টি';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেষট্টি';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চৌষট্টি';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়ষট্টি';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছেষট্টি';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতষট্টি';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটষট্টি';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনসত্তর';
+
+                    }
+                    else {
+                        histr[j] = ' ষাট';
+                        i--;
+                    }
+
+                    i++;
+                }
+                if (str === 'seventy') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একাত্তর';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাহাত্তর';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিয়াত্তর';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়াত্তর';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচাত্তর';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়াত্তর';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতাত্তর';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটাত্তর';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনঊননব্বই';
+
+                    }
+                    else {
+                        histr[j] = ' সত্তর';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'eighty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একাশি';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিরাশি';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিরাশি';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুরাশি';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচাশি';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়াশি';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতাশি';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = '  আটাশি';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊননব্বই';
+
+                    }
+                    else {
+                        histr[j] = ' আশি';
+                        i--;
+
+                    }
+                    i++;
+                }
+                if (str === 'ninety') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একানব্বই';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিরানব্বই';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিরানব্বই';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুরানব্বই';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচানব্বই';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়ানব্বই';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতানব্বই';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটানব্বই';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' নিরানব্বই';
+
+                    }
+                    else {
+                        histr[j] = 'নব্বই';
+                        i--;
+
+                    }
+
+                    i++;
+
+                }
+                j++;
+
+            } //end of for loop
+
+            for (q = 0; q < histr.length; q++) {
+                result += histr[q];
+            }
+            document.getElementById('container2').value = result;
+
+        }
+    </script>
+
+
+    <script>
+        /* fuction for amount convert in currency(in hindi and english words)  */
+
+        function gwords() {
+            var str, str1, str2, str3, q, q1;
+            var result = '';
+            var ws = new Array();
+            var ws1 = '';
+            var result2 = '';
+
+            var finalWords = document.getElementById('container').value;
+            //alert(finalWords);
+            finalWords = finalWords.trim();
+
+            //ws = finalWords.split("Rupees ");
+            //alert(ws.length);
+
+
+            //alert(ws.length);
+            //ws1=ws1.trim();
+            //alert (z);
+            //if(z == 0)
+            //{
+            var words = finalWords.split(" ");
+            //alert(words);
+
+            var histr = new Array();
+
+
+            var j = 0;
+            for (var i = 0; i < words.length; i++) {
+                str = words[i];
+
+                str1 = words[i + 1];
+                //alert(str);
+                if (str === ',') {
+                    histr[j] = ' ';
+
+                }
+                if (str === '') {
+                    histr[j] = ' ';
+
+                }
+                if (str === 'and') {
+                    histr[j] = '';
+
+                }
+                if (str === 'only') {
+                    histr[j] = ' পয়সা';
+
+                }
+                if (str === 'Rupees') {
+                    histr[j] = ' টাকা এবং';
+
+                }
+                if (str === 'paisa') {
+                    histr[j] = '';
+
+                }
+                if (str === 'hundred') {
+                    histr[j] = ' শো';
+
+                }
+                if (str === 'thousand') {
+                    histr[j] = ' হাজার';
+
+                }
+
+                if (str === 'lakh') {
+                    histr[j] = ' লাখ';
+
+                }
+                if (str === 'crore') {
+                    histr[j] = ' কোটি';
+
+                }
+
+                if (str === 'zero') {
+                    histr[j] = ' শুন্য';
+
+                }
+                if (str === 'one') {
+                    histr[j] = ' এক';
+
+                }
+                if (str === 'two') {
+                    histr[j] = ' দুই';
+
+                }
+                if (str === 'three') {
+                    histr[j] = ' তিন';
+
+                }
+                if (str === 'four') {
+                    histr[j] = ' চার';
+
+                }
+                if (str === 'five') {
+                    histr[j] = ' পাঁচ';
+
+                }
+                if (str === 'six') {
+                    histr[j] = ' ছয়';
+
+                }
+                if (str === 'seven') {
+                    histr[j] = ' সাত';
+
+                }
+                if (str === 'eight') {
+                    histr[j] = ' আট';
+
+                }
+                if (str === 'nine') {
+                    histr[j] = ' নয়';
+                }
+                if (str === 'ten') {
+                    histr[j] = ' দশ';
+
+                }
+                if (str === 'eleven') {
+                    histr[j] = ' এগারো';
+
+                }
+                if (str === 'twelve') {
+                    histr[j] = ' বারো';
+
+                }
+                if (str === 'thirteen') {
+                    histr[j] = ' তেরো';
+
+                }
+                if (str === 'fourteen') {
+                    histr[j] = ' চৌদ্দ';
+
+                }
+                if (str === 'fifteen') {
+                    histr[j] = ' পনেরো';
+
+                }
+                if (str === 'sixteen') {
+                    histr[j] = ' ষোল';
+
+                }
+                if (str === 'seventeen') {
+                    histr[j] = ' সতেরো';
+
+                }
+                if (str === 'eighteen') {
+                    histr[j] = ' আঠারো';
+
+                }
+                if (str === 'nineteen') {
+                    histr[j] = ' ঊনিশ';
+
+                }
+                if (str === 'twenty') {
+
+
+                    if (str1 === 'one') {
+                        histr[j] = ' একুশ';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাইশ';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেইশ';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চব্বিশ';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচিশ';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছাব্বিশ';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতাশ';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আঠাশ';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনত্রিশ';
+
+                    }
+
+                    else {
+                        histr[j] = ' বিশ';
+                        i--;
+                    }
+
+                    i++;
+                }
+
+
+                if (str === 'thirty') {
+
+                    if (str1 === 'one') {
+                        histr[j] = ' একত্রিশ';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বত্রিশ';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেত্রিশ';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চৌত্রিশ';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়ত্রিশ';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছত্রিশ';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাইত্রিশ';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটত্রিশ';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনচল্লিশ';
+
+                    }
+                    else {
+                        histr[j] = ' ত্রিশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'forty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একচল্লিশ';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিয়াল্লিশ';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেতাল্লিশ';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়াল্লিশ';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়তাল্লিশ';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছেচল্লিশ';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতচল্লিশ';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটচল্লিশ';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনপঞ্চাশ';
+
+                    }
+                    else {
+                        histr[j] = ' চল্লিশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'fifty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একান্ন';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বায়ান্ন';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তিপ্পান্ন';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়ান্ন';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঞ্চান্ন';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছাপ্পান্ন';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতান্ন';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটান্ন';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনষাট';
+
+                    }
+                    else {
+                        histr[j] = ' পঞ্চাশ';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'sixty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একষট্টি';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাষট্টি';
+
+                    }
+                    else if (str1 === 'three') {
+                        histr[j] = ' তেষট্টি';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চৌষট্টি';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁয়ষট্টি';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছেষট্টি';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতষট্টি';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটষট্টি';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনসত্তর';
+
+                    }
+                    else {
+                        histr[j] = ' ষাট';
+                        i--;
+                    }
+
+                    i++;
+                }
+                if (str === 'seventy') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একাত্তর';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বাহাত্তর';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিয়াত্তর';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুয়াত্তর';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচাত্তর';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়াত্তর';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতাত্তর';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটাত্তর';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊনঊননব্বই';
+
+                    }
+                    else {
+                        histr[j] = ' সত্তর';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'eighty') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একাশি';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিরাশি';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিরাশি';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুরাশি';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচাশি';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়াশি';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = '  সাতাশি';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = '  আটাশি';
+
+                    }
+                    else if (str1 === 'nine') {
+                        histr[j] = ' ঊননব্বই';
+
+                    }
+                    else {
+                        histr[j] = ' আশি';
+                        i--;
+                    }
+                    i++;
+                }
+                if (str === 'ninety') {
+                    if (str1 === 'one') {
+                        histr[j] = ' একানব্বই';
+
+                    }
+                    else if (str1 === 'two') {
+                        histr[j] = ' বিরানব্বই';
+
+                    }
+                    else if (str1 === 'three') {
+
+                        histr[j] = ' তিরানব্বই';
+
+                    }
+                    else if (str1 === 'four') {
+                        histr[j] = ' চুরানব্বই';
+
+                    }
+                    else if (str1 === 'five') {
+                        histr[j] = ' পঁচানব্বই';
+
+                    }
+                    else if (str1 === 'six') {
+                        histr[j] = ' ছিয়ানব্বই';
+
+                    }
+                    else if (str1 === 'seven') {
+                        histr[j] = ' সাতানব্বই';
+
+                    }
+                    else if (str1 === 'eight') {
+                        histr[j] = ' আটানব্বই';
+
+                    }
+
+                    else if (str1 === 'nine') {
+                        histr[j] = ' নিরানব্বই';
+
+                    }
+                    else {
+                        histr[j] = ' নব্বই';
+                        i--;
+                    }
+
+                    i++;
+
+                }
+                j++;
+
+            }
+
+            //}
+            /*if(z == 1)
+            {
+                //
+                var words1 = ws1.split(" ");
+                alert(words1);
+
+            //
+
+            }// end of z == 0 else condition*/
+
+
+            for (q = 0; q < histr.length; q++) {
+                result += histr[q];
+            }
+            document.getElementById('container4').value = result;
+
+
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        var root = typeof self == 'object' && self.self === self && self ||
+            typeof global == 'object' && global.global === global && global ||
+            this;
+
+
+        function isFinite(value) {
+            return !(typeof value !== 'number' || value !== value || value === Infinity || value === -Infinity);
+        }
+
+
+        var ENDS_WITH_DOUBLE_ZERO_PATTERN = /(hundred|thousand|(m|b|tr|quadr)illion)$/;
+        var ENDS_WITH_TEEN_PATTERN = /teen$/;
+        var ENDS_WITH_Y_PATTERN = /y$/;
+        var ENDS_WITH_ZERO_THROUGH_TWELVE_PATTERN = /(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)$/;
+        var ordinalLessThanThirteen = {
+            zero: 'zeroth',
+            one: 'first',
+            two: 'second',
+            three: 'third',
+            four: 'fourth',
+            five: 'fifth',
+            six: 'sixth',
+            seven: 'seventh',
+            eight: 'eighth',
+            nine: 'ninth',
+            ten: 'tenth',
+            eleven: 'eleventh',
+            twelve: 'twelfth'
+        };
+
+
+        function makeOrdinal(words) {
+            // Ends with *00 (100, 1000, etc.) or *teen (13, 14, 15, 16, 17, 18, 19)
+            if (ENDS_WITH_DOUBLE_ZERO_PATTERN.test(words) || ENDS_WITH_TEEN_PATTERN.test(words)) {
+                return words + 'th';
+            }
+            // Ends with *y (20, 30, 40, 50, 60, 70, 80, 90)
+            else if (ENDS_WITH_Y_PATTERN.test(words)) {
+                return words.replace(ENDS_WITH_Y_PATTERN, 'ieth');
+            }
+            // Ends with one through twelve
+            else if (ENDS_WITH_ZERO_THROUGH_TWELVE_PATTERN.test(words)) {
+                return words.replace(ENDS_WITH_ZERO_THROUGH_TWELVE_PATTERN, replaceWithOrdinalVariant);
+            }
+            return words;
+        }
+
+        function replaceWithOrdinalVariant(match, numberWord) {
+            return ordinalLessThanThirteen[numberWord];
+        }
+
+
+        function toOrdinal(number) {
+            var num = parseInt(number, 10);
+            if (!isFinite(num)) throw new TypeError('Not a finite number: ' + number + ' (' + typeof number + ')');
+            var str = String(num);
+            var lastTwoDigits = num % 100;
+            var betweenElevenAndThirteen = lastTwoDigits >= 11 && lastTwoDigits <= 13;
+            var lastChar = str.charAt(str.length - 1);
+            return str + (betweenElevenAndThirteen ? 'th'
+                : lastChar === '1' ? 'st'
+                    : lastChar === '2' ? 'nd'
+                        : lastChar === '3' ? 'rd'
+                            : 'th');
+        }
+        var TEN = 10;
+        var ONE_HUNDRED = 100;
+        var ONE_THOUSAND = 1000;
+        var ONE_MILLION = 1000000;
+        var ONE_BILLION = 1000000000;           //         1.000.000.000 (9)
+        var ONE_TRILLION = 1000000000000;       //     1.000.000.000.000 (12)
+        var ONE_QUADRILLION = 1000000000000000; // 1.000.000.000.000.000 (15)
+        var MAX = 9007199254740992;             // 9.007.199.254.740.992 (15)
+
+        var LESS_THAN_TWENTY = [
+            'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+            'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
+        ];
+
+        var TENTHS_LESS_THAN_HUNDRED = [
+            'zero', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
+        ];
+
+
+        function toWords(number, asOrdinal) {
+            var words;
+            var num = parseInt(number, 10);
+            if (!isFinite(num)) throw new TypeError('Not a finite number: ' + number + ' (' + typeof number + ')');
+            if (num >= MAX) {
+                words = "Number is Out of range. Please enter number upto 15 digit.";
+            }
+            else {
+                words = generateWords(num);
+            }
+            return asOrdinal ? makeOrdinal(words) : words;
+        }
+
+        function generateWords(number) {
+            var remainder, word,
+                words = arguments[1];
+
+            // We’re done
+            if (number === 0) {
+                return !words ? 'zero' : words.join(' ').replace(/,$/, '');
+            }
+            // First run
+            if (!words) {
+                words = [];
+            }
+            // If negative, prepend “minus”
+
+            if (number < 0) {
+                words.push('minus');
+                number = Math.abs(number);
+            }
+
+            if (number < 20) {
+                remainder = 0;
+                word = LESS_THAN_TWENTY[number];
+
+            } else if (number < ONE_HUNDRED) {
+                remainder = number % TEN;
+                word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / TEN)];
+                // In case of remainder, we need to handle it here to be able to add the “-”
+                if (remainder) {
+                    // word += '-' + LESS_THAN_TWENTY[remainder];
+                    word += ' ' + LESS_THAN_TWENTY[remainder];
+                    remainder = 0;
+                }
+
+            } else if (number < ONE_THOUSAND) {
+                remainder = number % ONE_HUNDRED;
+                word = generateWords(Math.floor(number / ONE_HUNDRED)) + ' hundred';
+
+            } else if (number < ONE_MILLION) {
+                remainder = number % ONE_THOUSAND;
+                word = generateWords(Math.floor(number / ONE_THOUSAND)) + ' thousand,';
+
+            } else if (number < ONE_BILLION) {
+                remainder = number % ONE_MILLION;
+                word = generateWords(Math.floor(number / ONE_MILLION)) + ' million,';
+
+            } else if (number < ONE_TRILLION) {
+                remainder = number % ONE_BILLION;
+                word = generateWords(Math.floor(number / ONE_BILLION)) + ' billion,';
+
+            } else if (number < ONE_QUADRILLION) {
+                remainder = number % ONE_TRILLION;
+                word = generateWords(Math.floor(number / ONE_TRILLION)) + ' trillion,';
+
+            } else if (number <= MAX) {
+                remainder = number % ONE_QUADRILLION;
+                word = generateWords(Math.floor(number / ONE_QUADRILLION)) + ' quadrillion,';
+            }
+
+            words.push(word);
+            return generateWords(remainder, words);
+        }
+
+        function toWordsOrdinal(number) {
+            var words = toWords(number);
+            return makeOrdinal(words);
+        }
+
+        var numberToWords = {
+            toOrdinal: toOrdinal,
+            toWords: toWords,
+            toWordsOrdinal: toWordsOrdinal
+        };
+
+        if (typeof exports != 'undefined') {
+            if (typeof module != 'undefined' && module.exports) {
+                exports = module.exports = numberToWords;
+            }
+            exports.numberToWords = numberToWords;
+        } else {
+            root.numberToWords = numberToWords;
+        }
+
+        //--->number to word > end
+        // ]]></script>
+    <script>// <![CDATA[
+        /*$(document).ready(function($)
+
+            {
+
+                $(document).on('click', '.btn_get_word', function(event) */
+        function intnum() {
+            event.preventDefault();
+            var get_num = document.getElementById('total').value;
+
+            //var get_num = $('.get_num').val();
+
+            if (get_num) {
+                var d = '' + toWords(get_num) + ''
+                //$(document).find('.num_converted').html(d)
+                document.getElementById('intnum_converted').value = d;
+            }
+            else {
+                var d = 'Please enter a number.'
+                //$(document).find('.num_converted').html(d)
+                document.getElementById('intnum_converted').value = d;
+            }
+
+
+        }/*)
+
+
+            });*/
+        // ]]></script>
+</body>
+
+</html>
