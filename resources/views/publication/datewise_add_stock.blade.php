@@ -112,9 +112,16 @@
             padding: 4px;
         }
 
+        .print_show{
+            display: block;
+        }
+
         @media print {
             .print_hidden {
                 display: none;
+            }
+            .print_show{
+                display: block;
             }
         }
         /* form end */
@@ -142,6 +149,7 @@
         {{-- <div class="logo d-none">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTANaTDpJ6NwWc5mGH1ZVNB0HdsNH2UjO57Lg&s" alt="">
         </div> --}}
+        {{-- <h4 class="mb-1 fw-semibold">{{$date->toDateString()}}</h4> --}}
         <form class="print_hidden date_form" action="{{route('datewise_add_stock_printout')}}" method="POST">
             @csrf
             <input class="" type="date" name="date">

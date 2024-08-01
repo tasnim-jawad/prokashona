@@ -249,6 +249,7 @@ class PrintController extends Controller
         }
         // dd($product_stock_data,$product_stock_data[0]?->product_stock_this_month);
         return view('publication.datewise_add_stock')
+                            ->with('date',$date)
                             ->with('product_stock_data',$product_stock_data)
                             ->with('total_stock',$total_stock)
                             ->with('total_sales',$total_sales)
