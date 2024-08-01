@@ -119,6 +119,19 @@
         }
         /* form end */
 
+        .transparent_border_bottom{
+            border-bottom: 1px solid transparent;
+        }
+        .single_product_total{
+            border: 2px solid black;
+            background-color: rgb(160, 160, 160)
+
+        }
+        .single_product_total td{
+            font-weight: 700;
+            background-color: rgb(160, 160, 160)
+        }
+
     </style>
   </head>
   <body >
@@ -156,20 +169,59 @@
                         <tr>
                             <td>{{$i + 1}}</td>
                             <td>{{$single_data->product_name}}</td>
-                            <td>{{$single_data->product_stock}}</td>
-                            <td>{{$single_data->product_seles}}</td>
-                            <td>{{$single_data->new_stock}}</td>
-                            <td>{{$single_data->stock_update_date}}</td>
+                            <td>{{$single_data->previous_product_stock}}</td>
+                            <td>{{$single_data->previous_product_sales}}</td>
+                            <td>{{$single_data->previous_new_stock}}</td>
                             <td></td>
-                            <td>----</td>
-                            <td>----</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @foreach ($single_data->product_stock_this_month as $product_stock_this_month)
+                            <tr>
+                                <td></td>
+                                <td class="transparent_border_bottom"></td>
+                                <td>{{$product_stock_this_month->qty}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$product_stock_this_month->updated_at->toDateString()}}</td>
+                                <td>{{$product_stock_this_month->order_id}}</td>
+                                <td>{{$product_stock_this_month->supplier_name}}</td>
+                                <td>{{$product_stock_this_month->binder_name}}</td>
+
+                            </tr>
+                        @endforeach
+                        @foreach ($single_data->product_sales_this_month as $product_sales_this_month)
+                            <tr>
+                                <td></td>
+                                <td class="transparent_border_bottom"></td>
+                                <td></td>
+                                <td>{{$product_sales_this_month->qty}}</td>
+                                <td></td>
+                                <td>{{$product_sales_this_month->updated_at->toDateString()}}</td>
+                                <td>{{$product_sales_this_month->order_id}}</td>
+                                <td>{{$product_sales_this_month->supplier_name}}</td>
+                                <td>{{$product_sales_this_month->binder_name}}</td>
+
+                            </tr>
+                        @endforeach
+                        <tr class="single_product_total">
+                            <td></td>
+                            <td>Total</td>
+                            <td>{{$single_data->product_stock}}</td>
+                            <td>{{$single_data->product_sales}}</td>
+                            <td>{{$single_data->new_stock}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     @endforeach
                     <tr class="total_tr">
                         <td class="border_left"></td>
                         <td></td>
                         <td>{{$total_stock}}</td>
-                        <td>{{$total_seles}}</td>
+                        <td>{{$total_sales}}</td>
                         <td>{{$total_new_stock}}</td>
                         <td></td>
                         <td></td>

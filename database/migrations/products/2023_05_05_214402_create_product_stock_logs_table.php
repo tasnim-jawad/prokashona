@@ -22,9 +22,10 @@ class CreateProductStockLogsTable extends Migration
             $table->bigInteger("order_id")->unsigned()->nullable();
             $table->bigInteger("product_return_id")->unsigned()->nullable();
 
+            $table->date("date")->nullable();
             $table->string("mr_no",45)->nullable();
             $table->string("supplier_name",100)->nullable();
-            $table->bigInteger("order_id")->unsigned()->nullable();
+            $table->string("order_id",100)->nullable();
             $table->string("binder_name",100)->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

@@ -180,50 +180,78 @@ class PrintController extends Controller
     }
 
     public function datewise_add_stock_printout(){
-        // $date = request()->all()['date'];
+        $date = request()->all()['date'];
+        // dd($date);
+        $carbon_date = Carbon::parse($date);
+        $month = $carbon_date->month;
+        $year = $carbon_date->year;
+        // dd($date,$carbon_date,$month ,$year);
         $products = Product::all();
         $product_stock_data = [];
         $total_stock = 0;
-        $total_seles = 0;
+        $total_sales = 0;
         $total_new_stock = 0;
 
         foreach($products as $product){
-            $isProduct =  ProductStockLog::where('product_id',$product->id)->exists();
+            $isProduct =  ProductStockLog::where('product_id',$product->id)->whereMonth('created_at',$month)->whereYear('created_at',$year)->exists();
             if($isProduct){
                 $product_stock = ProductStockLog::where('product_id',$product->id)
                                             ->whereIn('type', ['initial', 'production'])
+                                            ->whereYear('created_at', $year)
+                                            ->whereMonth('created_at', '<=', $month)
+                                            ->orderBy('updated_at', 'desc')
+                                            ->get();
+                $product_stock_this_month = ProductStockLog::where('product_id',$product->id)
+                                            ->whereIn('type', ['initial', 'production'])
+                                            ->whereMonth('created_at',$month)->whereYear('created_at',$year)
                                             ->orderBy('updated_at', 'desc')
                                             ->get();
                 $product_sales = ProductStockLog::where('product_id',$product->id)
                                             ->where('type', 'sales')
+                                            ->whereYear('created_at', $year)
+                                            ->whereMonth('created_at', '<=', $month)
+                                            ->orderBy('updated_at', 'desc')
+                                            ->get();
+                $product_sales_this_month = ProductStockLog::where('product_id',$product->id)
+                                            ->where('type', 'sales')
+                                            ->whereMonth('created_at',$month)->whereYear('created_at',$year)
                                             ->orderBy('updated_at', 'desc')
                                             ->get();
 
                 $product_stock_sum = $product_stock->sum('qty');
                 $product_sales_sum = $product_sales->sum('qty');
-
                 $new_stock = $product_stock_sum - $product_sales_sum;
-                $stock_update_date = $product_stock->isNotEmpty() ? $product_stock->first()->updated_at : null;;
+
+                $previous_product_stock_sum = ($product_stock ? $product_stock->sum('qty') : 0) - ($product_stock_this_month ? $product_stock_this_month->sum('qty') : 0);
+                $previous_product_sales_sum = ($product_sales ? $product_sales->sum('qty') : 0) - ($product_sales_this_month ? $product_sales_this_month->sum('qty') : 0);
+                $previous_new_stock = $previous_product_stock_sum - $previous_product_sales_sum;
 
                 $obj = new \stdClass();
                 $obj->product_name = $product->product_name_english;
+
                 $obj->product_stock = $product_stock_sum;
-                $obj->product_seles = $product_sales_sum;
+                $obj->product_sales = $product_sales_sum;
                 $obj->new_stock =  $new_stock;
-                $obj->stock_update_date = Carbon::parse($stock_update_date)->format('d-M-Y');
+
+                $obj->previous_product_stock = $previous_product_stock_sum;
+                $obj->previous_product_sales = $previous_product_sales_sum;
+                $obj->previous_new_stock = $previous_new_stock;
+
+                $obj->product_stock_this_month = $product_stock_this_month;
+                $obj->product_sales_this_month = $product_sales_this_month;
                 $product_stock_data[] = $obj;
 
                 $total_stock += $product_stock_sum;
-                $total_seles += $product_sales_sum;
+                $total_sales += $product_sales_sum;
                 $total_new_stock += $new_stock;
             }
 
         }
-        // dd($product_stock_data);
+        // dd($product_stock_data,$product_stock_data[0]?->product_stock_this_month);
         return view('publication.datewise_add_stock')
                             ->with('product_stock_data',$product_stock_data)
                             ->with('total_stock',$total_stock)
-                            ->with('total_seles',$total_seles)
+                            ->with('total_sales',$total_sales)
                             ->with('total_new_stock',$total_new_stock);
     }
 }
