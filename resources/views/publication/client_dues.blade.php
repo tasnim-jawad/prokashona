@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>client dues</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body{
@@ -76,7 +76,7 @@
         <h1 class="fw-bolder m-0">I C S Publication</h1>
         <h4 class="mb-1 fw-semibold">48/1-A, Purana Palatan, Dhaka. Ph-9566440</h4>
         <h2 class="fw-semibold m-0">Client's Dues</h2>
-        <p class="m-1"><span class="fw-semibold">Date:</span> <span>22-June-2024</span></p>
+        {{-- <p class="m-1"><span class="fw-semibold">Date:</span> <span>22-June-2024</span></p> --}}
         <div class="logo d-none">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTANaTDpJ6NwWc5mGH1ZVNB0HdsNH2UjO57Lg&s" alt="">
         </div>
@@ -85,134 +85,21 @@
         <table>
             <thead>
                 <tr>
-                    <th  class="text-center width-75px">Claint ID</th>
-                    <th>Client Name</th>
-                    <th>Contact Person</th>
-                    <th>Mobile</th>
+                    <th  class="text-center width-75px">Client ID</th>
+                    <th class="ps-5">Client Name</th>
                     <th class="text-end">Dues</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-                <tr>
-                    <td class="bg_gray">1543</td>
-                    <td>Tasnimul Hasan Jawad</td>
-                    <td>Abdul Baten</td>
-                    <td>01760255486</td>
-                    <td class="text-end">Tk.605,980.00</td>
-                </tr>
-
+                @if (isset($user_due_info) )
+                    @foreach ($user_due_info as $single_user_due)
+                        <tr>
+                            <td class="bg_gray">{{$single_user_due->client_id}}</td>
+                            <td class="ps-5">{{$single_user_due->client_name}}</td>
+                            <td class="text-end">Tk.{{number_format(abs($single_user_due->due),2, '.', ',')}}</td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

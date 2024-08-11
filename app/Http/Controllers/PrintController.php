@@ -10,8 +10,11 @@ use App\Models\Product\ProductStockLog;
 use App\Models\Production\SupplierPaper;
 use App\Models\Production\SupplierPrint;
 use App\Models\Account\AccountSupplierLog;
+use App\Models\Order\OrderDetails;
+use App\Models\Payment\UserPayment;
 use App\Models\Production\SupplierBinding;
 use App\Models\Production\SupplierPaperStock;
+use App\Models\User;
 
 class PrintController extends Controller
 {
@@ -254,5 +257,97 @@ class PrintController extends Controller
                             ->with('total_stock',$total_stock)
                             ->with('total_sales',$total_sales)
                             ->with('total_new_stock',$total_new_stock);
+    }
+
+    public function client_dues(){
+        $user_due_info = [];
+
+        $users = User::all();
+        foreach($users as $user){
+            $isUserPayment = UserPayment::where('user_id',$user->id)->exists();
+            if($isUserPayment){
+                $user_credit = UserPayment::where('user_id',$user->id)
+                                            ->where('type', 'credit')
+                                            ->get();
+                $user_total_credit = $user_credit->sum('amount');
+
+                $order_details = OrderDetails::where('user_id',$user->id)
+                                                ->get();
+                $order_details_total = 0;
+                foreach ($order_details as $single_order) {
+                    $single_order_total = $single_order->qty * $single_order->sales_price;
+                    // dd($single_order_total,$user->id);
+                    $order_details_total += $single_order_total;
+                }
+                if($user_total_credit < $order_details_total){
+                    $user_due_info[] = (object) [
+                        'client_id' => $user->user_name,
+                        'client_name' => $user->first_name,
+                        'due' => $user_total_credit - $order_details_total,
+                    ];
+                }
+            }
+        }
+
+        return view('publication.client_dues')->with('user_due_info',$user_due_info);
+    }
+
+    public function due_collection($id){
+        $today = Carbon::today();
+        $user = User::find($id);
+            $isUserPayment = UserPayment::where('user_id',$user->id)->exists();
+            if($isUserPayment){
+                $user_credit = UserPayment::where('user_id',$user->id)
+                                            ->where('type', 'credit')
+                                            ->get();
+                $user_total_credit = $user_credit->sum('amount');
+
+                $order_details = OrderDetails::where('user_id',$user->id)
+                                                ->get();
+                $order_details_total = 0;
+                foreach ($order_details as $single_order) {
+                    $single_order_total = $single_order->qty * $single_order->sales_price;
+                    // dd($single_order_total,$user->id);
+                    $order_details_total += $single_order_total;
+                }
+
+                // $due = 0;
+                if($user_total_credit < $order_details_total){
+                    $due = $user_total_credit - $order_details_total;
+                }else{
+                    $due = 0 ;
+                }
+
+                $user_debit = UserPayment::where('user_id',$user->id)
+                                            ->where('type', 'debit')
+                                            ->latest()
+                                            ->first()
+                                            ->amount;
+                // dd($due,$user_debit);
+
+            }
+
+        return view('publication.due_collection')
+                                                ->with('user', $user)
+                                                ->with('date' , $today)
+                                                ->with('due' , $due)
+                                                ->with('user_debit' , $user_debit);
+    }
+    // public function due_collection_printout(){
+    //     $user_id = request()->all()['user_id'];
+    //     // dd($user_id);
+    //     $user_selected = User::find($user_id);
+    //     // dd($user,$user_id);
+    //     $users = User::all();
+    //     return view('publication.due_collection')
+    //                                 ->with('users',$users)
+    //                                 ->with('user_selected',$user_selected);
+    // }
+
+    public function daily_add_product(){
+        return view('publication.daily_add_product');
+    }
+    public function daily_add_product_printout(){
+        return view('publication.daily_add_product');
     }
 }

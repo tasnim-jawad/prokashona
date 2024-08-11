@@ -212,17 +212,20 @@ Route::group(['prefix' => 'print', 'namespace' => "Controllers"], function () {
     Route::get('/datewise-add-stock', 'PrintController@datewise_add_stock');
     Route::post('/datewise-add-stock-printout', 'PrintController@datewise_add_stock_printout')->name('datewise_add_stock_printout');
 
-    Route::get('/client_dues', function(){
-        return view('publication.client_dues');
-    });
-    Route::get('/due_collection', function(){
-        return view('publication.due_collection');
-    });
+    Route::get('/client-dues', 'PrintController@client_dues');
+    // Route::post('/client-dues-printout', 'PrintController@client_dues_printout')->name('client_dues_printout');
+
+    Route::get('/due-collection/{id}', 'PrintController@due_collection');
+    // Route::post('/due-collection-printout', 'PrintController@due_collection_printout')->name('due_collection_printout');
+
+    Route::get('/daily-add-product', 'PrintController@daily_add_product');
+    Route::post('/daily-add-product-printout', 'PrintController@daily_add_product_printout')->name('daily_add_product_printout');
+
+    // Route::get('/due_collection', function(){
+    //     return view('publication.due_collection');
+    // });
+
     Route::get('/daily_add_product', function(){
         return view('publication.daily_add_product');
     });
-
-    // Route::get('/datewise_add_stock', function(){
-    //     return view('publication.datewise_add_stock');
-    // });
 });

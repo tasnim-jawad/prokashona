@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Due Cullection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body{
@@ -88,7 +88,32 @@
             height: 100%;
         }
 
+        /* form start */
+        form{
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .date_form input{
+            font-size: 10px;
+        }
+        .date_form button{
+            font-size: 10px;
+            padding: 4px;
+        }
 
+        .print_show{
+            display: block;
+        }
+
+        @media print {
+            .print_hidden {
+                display: none;
+            }
+            .print_show{
+                display: block;
+            }
+        }
+        /* form end */
 
 
     </style>
@@ -98,59 +123,69 @@
         <h1 class="fw-bolder">I C S Publication</h1>
         <h4 class="mb-3 fw-semibold">48/1-A, Purana Palatan, Dhaka. Ph-9566440</h4>
         <h2 class="fw-semibold mb-3">Due Collection Receipt</h2>
-        <div class="logo">
-            <img src="" alt="">
-        </div>
-        <p class="text-end"><span class="fw-semibold">Receipt Date :</span> <span>22-June-2024</span></p>
+        {{-- <form class="print_hidden" action="{{route('due_collection_printout')}}" method="POST">
+            @csrf
+            <select name="user_id" id="">
+                @foreach ($users as $user)
+                    <option value="{{$user->id}}">{{$user->first_name}}</option>
+                @endforeach
+                <option value="2">jawad</option>
+                <option value="3">hasan</option>
+            </select>
+            <button type="submit" class="btn btn-primary btn-sm">Small button</button>
+        </form> --}}
+        <p class="text-end"><span class="fw-semibold">Receipt Date :</span> <span>{{ $date->format('d-F-Y') }}</span></p>
     </div>
     <div class="line"></div>
     <div class="table_content">
-        <table class="w-100">
-            <tbody>
-                <tr>
-                    <td class="table_point">
-                        <div>
-                            <span>Due C. ID</span>
-                            <span class="text-end">:</span>
-                        </div>
-                    </td>
-                    <td>2322323</td>
-                    <td class="table_point">
-                        <div class="justify-content-end">
-                            <span>Collection Date</span>
-                            <span class="text-end">:</span>
-                        </div>
-                    </td>
-                    <td>15/06/2024</td>
-                </tr>
-                <tr>
-                    <td class="table_point">
-                        <div>
-                            <span>Client Name</span>
-                            <span class="text-end">:</span>
-                        </div>
-                    </td>
-                    <td>Faridpur District</td>
-                </tr>
-                <tr>
-                    <td class="table_point">
-                        <div>
-                            <span>Representative</span>
-                            <span class="text-end">:</span>
-                        </div>
-                    </td>
-                    <td>Bank</td>
-                </tr>
-            </tbody>
-        </table>
+        @if (isset($user))
+            <table class="w-100">
+                <tbody>
+                    <tr>
+                        <td class="table_point">
+                            <div>
+                                <span>Due C. ID</span>
+                                <span class="text-end">:</span>
+                            </div>
+                        </td>
+                        <td>{{$user->user_name}}</td>
+                        <td class="table_point">
+                            <div class="justify-content-end">
+                                <span>Collection Date</span>
+                                <span class="text-end">:</span>
+                            </div>
+                        </td>
+                        <td>{{ $date->format('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table_point">
+                            <div>
+                                <span>Client Name</span>
+                                <span class="text-end">:</span>
+                            </div>
+                        </td>
+                        <td>{{$user->first_name}}</td>
+                    </tr>
+                    {{-- <tr>
+                        <td class="table_point">
+                            <div>
+                                <span>Representative</span>
+                                <span class="text-end">:</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr> --}}
+                </tbody>
+            </table>
+        @endif
     </div>
     <div class="line"></div>
 
     <div class="summery">
-        <p><span class="fw-semibold">Total Dues</span><span class="text-end">Tk.8,788.00</span></p>
-        <p><span class="fw-semibold">Paid Amount</span><span class="text-end">Tk.8,800.00</span></p>
+        <p><span class="fw-semibold">Total Dues</span><span class="text-end">Tk.{{number_format(abs($due),2, '.', ',')}}</span></p>
+        <p><span class="fw-semibold">Paid Amount</span><span class="text-end">Tk.{{number_format(abs($user_debit),2, '.', ',')}}</span></p>
         <div class="line_sm"></div>
-        <p><span class="fw-semibold">Current Due</span><span class="text-end">(Tk.12.00)</span></p>
+        <p><span class="fw-semibold">Current {{(abs($due) - $user_debit) > 0 ? "Due" : "Advance"}}</span><span class="text-end">(Tk.{{number_format(abs((abs($due) - abs($user_debit))),2, '.', ',')}})</span></p>
     </div>
 
     <div class="signature">
